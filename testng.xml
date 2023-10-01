@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <listeners>
+        <listener class-name="org.InarAcademy.listeners.ExtentReportListener"/>
+    </listeners>
+
+    <test verbose="2" preserve-order="true" name="InarAcademyTestNG">
+        <classes>
+            <class name="org.InarAcademy.testSuites.LoginTest">
+                <methods>
+                    <include name="loginToWebOrder"/>
+                </methods>
+            </class>
+
+            <class name="org.InarAcademy.testSuites.VerifyCalculationTest">
+                <methods>
+                    <include name="calculate"/>
+                </methods>
+            </class>
+
+            <class name="org.InarAcademy.testSuites.ViewOrderTest">
+                <methods>
+                    <include name="placeAndCheckOrder"/>
+                </methods>
+            </class>
+            <class name="org.InarAcademy.testSuites.CheckBoxTest">
+                <methods>
+                    <include name="addAndDeleteData"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

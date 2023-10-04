@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import java.time.Duration;
 
 public class HomePage {
@@ -14,7 +13,6 @@ public class HomePage {
 
     @FindBy(id = "welcome-heading")
     private WebElement welcomeText;
-
     @FindBy(id = "order-tab")
     private WebElement orderTab;
     @FindBy(id = "view-orders-tab")

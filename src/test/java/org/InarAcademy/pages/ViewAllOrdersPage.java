@@ -3,12 +3,10 @@ package org.InarAcademy.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import java.time.Duration;
 import java.util.List;
 
-public class ViewAllOrdersPage {
+public class ViewAllOrdersPage extends BasePage {
 
     @FindBy(xpath = "//h1[text()='View All Orders']")
     private WebElement viewAllOrdersText;
@@ -26,8 +24,7 @@ public class ViewAllOrdersPage {
     private WebElement noOrdersAvailableText;
 
     public ViewAllOrdersPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        super(driver);
     }
 
     public String getViewAllOrdersText() {

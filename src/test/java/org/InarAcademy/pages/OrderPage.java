@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,20 +15,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderPage {
+public class OrderPage extends BasePage {
 
-    private WebDriver driver;
-    private final String product = "HomeDecor";
-    private final String amount = "5";
-    private final String percentage = "20";
-    private final String name = "Inar";
-    private final String street = "Congress Ave.";
-    private final String city = "Austin";
-    private final String state = "TX";
-    private final String zip = "78701";
-    private final String cardType = "visa";
-    private final String cardNo = "4938281746192845";
-    private final String expireDate = "11/28";
+    private final String PRODUCT = "HomeDecor";
+    private final String AMOUNT = "5";
+    private final String PERCENTAGE = "20";
+    private final String NAME = "Inar";
+    private final String STREET = "Congress Ave.";
+    private final String CITY = "Austin";
+    private final String STATE = "TX";
+    private final String ZIP = "78701";
+    private final String CARD_TYPE = "visa";
+    private final String CARD_NO = "4938281746192845";
+    private final String EXPIRE_DATE = "11/28";
     @FindBy(className = "order-page")
     private WebElement orderPage;
     @FindBy(id = "productSelect")
@@ -66,9 +64,7 @@ public class OrderPage {
     private WebElement orderAddedAlert;
 
     public OrderPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(this.driver, this);
-        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        super(driver);
     }
 
     public Boolean isOrderPageDisplayed() {
@@ -76,23 +72,23 @@ public class OrderPage {
     }
 
     public void calculate() {
-        selectByText(productDropdown, product);
-        determineQuantity(amount);
-        determineDiscount(percentage);
+        selectByText(productDropdown, PRODUCT);
+        determineQuantity(AMOUNT);
+        determineDiscount(PERCENTAGE);
         calculateButton.click();
         checkTotalPrice();
     }
 
     public HomePage placeOrder() {
         calculate();
-        scrollAndSendKeysToElement(nameBox, name);
-        scrollAndSendKeysToElement(streetBox, street);
-        scrollAndSendKeysToElement(cityBox, city);
-        scrollAndSendKeysToElement(stateBox, state);
-        scrollAndSendKeysToElement(zipBox, zip);
+        scrollAndSendKeysToElement(nameBox, NAME);
+        scrollAndSendKeysToElement(streetBox, STREET);
+        scrollAndSendKeysToElement(cityBox, CITY);
+        scrollAndSendKeysToElement(stateBox, STATE);
+        scrollAndSendKeysToElement(zipBox, ZIP);
         scrollAndClickToElement(cardTypeElement);
-        scrollAndSendKeysToElement(cardNumberBox, cardNo);
-        scrollAndSendKeysToElement(expiryDateBox, expireDate);
+        scrollAndSendKeysToElement(cardNumberBox, CARD_NO);
+        scrollAndSendKeysToElement(expiryDateBox, EXPIRE_DATE);
         try {
             processButton.click();
         } catch (ElementClickInterceptedException exception) {
@@ -104,17 +100,17 @@ public class OrderPage {
 
     public List<String> getOrderDetails() {
         List<String> list = new ArrayList<>();
-        list.add(name);
-        list.add(product);
-        list.add(amount);
+        list.add(NAME);
+        list.add(PRODUCT);
+        list.add(AMOUNT);
         list.add(getCurrentDate());
-        list.add(street);
-        list.add(city);
-        list.add(state);
-        list.add(zip);
-        list.add(cardType);
-        list.add(cardNo);
-        list.add(expireDate);
+        list.add(STREET);
+        list.add(CITY);
+        list.add(STATE);
+        list.add(ZIP);
+        list.add(CARD_TYPE);
+        list.add(CARD_NO);
+        list.add(EXPIRE_DATE);
         return list;
     }
 
@@ -159,7 +155,7 @@ public class OrderPage {
 
     private void checkTotalPrice() {
         int unitPriceOfProduct = stringToInteger(unitPrice.getAttribute("value"));
-        int expectedTotal = (stringToInteger(amount) * unitPriceOfProduct) - (int) (stringToInteger(amount) * unitPriceOfProduct * stringToInteger(percentage) / 100.0);
+        int expectedTotal = (stringToInteger(AMOUNT) * unitPriceOfProduct) - (int) (stringToInteger(AMOUNT) * unitPriceOfProduct * stringToInteger(PERCENTAGE) / 100.0);
         Assert.assertEquals(stringToInteger(totalPrice.getAttribute("value")), expectedTotal);
     }
 

@@ -4,25 +4,18 @@ import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import java.time.Duration;
 
-public class HomePage {
+public class HomePage extends BasePage {
 
-    private final WebDriver driver;
-
-    @FindBy(id = "welcome-heading")
+    @FindBy(xpath = "//h1[@id='welcome-heading']")
     private WebElement welcomeText;
     @FindBy(id = "order-tab")
     private WebElement orderTab;
     @FindBy(id = "view-orders-tab")
     private WebElement viewAllOrdersTab;
 
-
     public HomePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(this.driver, this);
-        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        super(driver);
     }
 
     public String getWelcomeText() {

@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -52,8 +53,8 @@ public class OrderPage extends BasePage {
     private WebElement stateBox;
     @FindBy(id = "zip")
     private WebElement zipBox;
-    @FindBy(xpath = "//div[@class='form-check']/input[@id='visa']")
-    private WebElement cardTypeElement;
+    @FindBy(xpath = "//input[@name='cardType']")
+    private List<WebElement> cardTypeElements;
     @FindBy(id = "cardNumber")
     private WebElement cardNumberBox;
     @FindBy(id = "expiryDate")
@@ -62,6 +63,8 @@ public class OrderPage extends BasePage {
     private WebElement processButton;
     @FindBy(css = ".alert-success")
     private WebElement orderAddedAlert;
+    @FindBy(xpath = "//div/form/div[7]/span/em")
+    private WebElement cardNumberIsNotValidMessage;
 
     public OrderPage(WebDriver driver) {
         super(driver);
@@ -86,7 +89,13 @@ public class OrderPage extends BasePage {
         scrollAndSendKeysToElement(cityBox, CITY);
         scrollAndSendKeysToElement(stateBox, STATE);
         scrollAndSendKeysToElement(zipBox, ZIP);
-        scrollAndClickToElement(cardTypeElement);
+        //Here we select the "visa" type. So among others, we choose the "visa".
+        for (WebElement ele :
+                cardTypeElements) {
+            if ("visa".equalsIgnoreCase(ele.getAttribute("id"))) {
+                scrollAndClickToElement(ele);
+            }
+        }
         scrollAndSendKeysToElement(cardNumberBox, CARD_NO);
         scrollAndSendKeysToElement(expiryDateBox, EXPIRE_DATE);
         try {
@@ -161,5 +170,18 @@ public class OrderPage extends BasePage {
 
     private int stringToInteger(String value) {
         return Integer.parseInt(value);
+    }
+
+    public String fillPaymentInformations(String cardType, String cardNum, String expireDate) {
+        for (WebElement ele :
+                cardTypeElements) {
+            if (cardType.equalsIgnoreCase(ele.getAttribute("value"))) {
+                scrollAndClickToElement(ele);
+            }
+        }
+        scrollAndSendKeysToElement(cardNumberBox, cardNum);
+        scrollAndSendKeysToElement(expiryDateBox, expireDate);
+        scrollAndClickToElement(processButton);
+        return cardNumberIsNotValidMessage.getText();
     }
 }

@@ -15,7 +15,7 @@
 
             <class name="org.InarAcademy.testSuites.VerifyCalculationTest">
                 <methods>
-                    <include name="calculate"/>
+                    <include name="calculateOrder"/>
                 </methods>
             </class>
 
@@ -27,6 +27,13 @@
             <class name="org.InarAcademy.testSuites.CheckBoxTest">
                 <methods>
                     <include name="addAndDeleteData"/>
+                </methods>
+            </class>
+            <class name="org.InarAcademy.testSuites.InvalidCardNumberTests">
+                <methods>
+                    <include name="invalidCardNumberForAmericanExpress"/>
+                    <include name="invalidCardNumberForVisa"/>
+                    <include name="invalidCardNumberForMasterCard"/>
                 </methods>
             </class>
         </classes>

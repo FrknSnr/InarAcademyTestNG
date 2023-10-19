@@ -16,7 +16,7 @@ public class InvalidCardNumberTests extends TestBase {
         Assert.assertEquals(errorMessage, "Card number is not valid");
     }
 
-    @Test(description = "Invalid card number for not starting with '4' Visa")
+    @Test(description = "Invalid card number not starting with '4' for Visa")
     public void invalidCardNumberForVisa() {
         HomePage homePage = new LoginPage(driver).login("Inar", "Academy");
         OrderPage orderPage = homePage.goToOrderPage();
@@ -24,7 +24,7 @@ public class InvalidCardNumberTests extends TestBase {
         Assert.assertEquals(errorMessage, "Card number is not valid");
     }
 
-    @Test(description = "Invalid card number for not starting with '5' MasterCard")
+    @Test(description = "Invalid card number not starting with '5' for MasterCard")
     public void invalidCardNumberForMasterCard() {
         HomePage homePage = new LoginPage(driver).login("Inar", "Academy");
         OrderPage orderPage = homePage.goToOrderPage();

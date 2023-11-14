@@ -13,23 +13,23 @@
                 </methods>
             </class>
 
-            <class name="org.InarAcademy.testSuites.VerifyCalculationTest">
+            <class name="org.InarAcademy.testSuites.order.VerifyCalculationTest">
                 <methods>
                     <include name="calculateOrder"/>
                 </methods>
             </class>
 
-            <class name="org.InarAcademy.testSuites.ViewOrderTest">
+            <class name="org.InarAcademy.testSuites.viewAllOrders.ViewOrderTest">
                 <methods>
                     <include name="placeAndCheckOrder"/>
                 </methods>
             </class>
-            <class name="org.InarAcademy.testSuites.CheckBoxTest">
+            <class name="org.InarAcademy.testSuites.viewAllOrders.CheckBoxTest">
                 <methods>
                     <include name="addAndDeleteData"/>
                 </methods>
             </class>
-            <class name="org.InarAcademy.testSuites.InvalidCardNumberTests">
+            <class name="org.InarAcademy.testSuites.order.InvalidCardNumberTests">
                 <methods>
                     <include name="invalidCardNumberForAmericanExpress"/>
                     <include name="invalidCardNumberForVisa"/>

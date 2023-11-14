@@ -79,7 +79,6 @@ public class OrderPage extends BasePage {
         determineQuantity(AMOUNT);
         determineDiscount(PERCENTAGE);
         calculateButton.click();
-        checkTotalPrice();
     }
 
     public HomePage placeOrder() {
@@ -162,10 +161,13 @@ public class OrderPage extends BasePage {
         discount.sendKeys(percentage);
     }
 
-    private void checkTotalPrice() {
+    public int getActualTotalPrice() {
+        return stringToInteger(totalPrice.getAttribute("value"));
+    }
+
+    public int getExpectedTotalPrice() {
         int unitPriceOfProduct = stringToInteger(unitPrice.getAttribute("value"));
-        int expectedTotal = (stringToInteger(AMOUNT) * unitPriceOfProduct) - (int) (stringToInteger(AMOUNT) * unitPriceOfProduct * stringToInteger(PERCENTAGE) / 100.0);
-        Assert.assertEquals(stringToInteger(totalPrice.getAttribute("value")), expectedTotal);
+        return (stringToInteger(AMOUNT) * unitPriceOfProduct) - (int) (stringToInteger(AMOUNT) * unitPriceOfProduct * stringToInteger(PERCENTAGE) / 100.0);
     }
 
     private int stringToInteger(String value) {

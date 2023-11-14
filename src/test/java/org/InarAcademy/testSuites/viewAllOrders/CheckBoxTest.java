@@ -1,8 +1,9 @@
-package org.InarAcademy.testSuites;
+package org.InarAcademy.testSuites.viewAllOrders;
 
 import org.InarAcademy.pages.HomePage;
 import org.InarAcademy.pages.LoginPage;
 import org.InarAcademy.pages.ViewAllOrdersPage;
+import org.InarAcademy.testSuites.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

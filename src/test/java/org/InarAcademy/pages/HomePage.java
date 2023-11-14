@@ -13,6 +13,8 @@ public class HomePage extends BasePage {
     private WebElement orderTab;
     @FindBy(id = "view-orders-tab")
     private WebElement viewAllOrdersTab;
+    @FindBy(id = "view-products-tab")
+    private WebElement viewAllProductsTab;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -34,5 +36,9 @@ public class HomePage extends BasePage {
             viewAllOrdersTab.click();
         }
         return new ViewAllOrdersPage(driver);
+    }
+    public ViewAllProductsPage goToViewAllProductsPage(){
+        viewAllProductsTab.click();
+        return new ViewAllProductsPage(driver);
     }
 }

@@ -1,8 +1,8 @@
-package org.InarAcademy.testSuites.viewAllProducts;
+package org.InarAcademy.testSuites.weborder.viewAllProducts;
 
-import org.InarAcademy.pages.HomePage;
-import org.InarAcademy.pages.LoginPage;
-import org.InarAcademy.pages.ViewAllProductsPage;
+import org.InarAcademy.pages.weborder.HomePage;
+import org.InarAcademy.pages.weborder.LoginPage;
+import org.InarAcademy.pages.weborder.ViewAllProductsPage;
 import org.InarAcademy.testSuites.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;

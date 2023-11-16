@@ -1,5 +1,6 @@
-package org.InarAcademy.pages;
+package org.InarAcademy.pages.weborder;
 
+import org.InarAcademy.pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

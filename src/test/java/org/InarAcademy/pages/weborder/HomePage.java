@@ -1,5 +1,6 @@
-package org.InarAcademy.pages;
+package org.InarAcademy.pages.weborder;
 
+import org.InarAcademy.pages.BasePage;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,6 +18,7 @@ public class HomePage extends BasePage {
     private WebElement viewAllProductsTab;
     @FindBy(id = "logout-button")
     private WebElement logoutButton;
+
 
     public HomePage(WebDriver driver) {
         super(driver);

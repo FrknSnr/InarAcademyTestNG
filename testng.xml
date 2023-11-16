@@ -5,25 +5,27 @@
         <listener class-name="org.InarAcademy.listeners.ExtentReportListener"/>
     </listeners>
 
-    <test verbose="2" preserve-order="true" name="InarAcademyTestNG">
+    <test verbose="2" name="InarAcademyTestNG">
         <classes>
 
-            <class name="org.InarAcademy.testSuites.LoginTests">
+            <class name="org.InarAcademy.testSuites.weborder.LoginTests">
+            </class>
+            <class name="org.InarAcademy.testSuites.weborder.LogoutTest">
             </class>
 
-            <class name="org.InarAcademy.testSuites.order.VerifyCalculationTest">
+            <class name="org.InarAcademy.testSuites.weborder.order.VerifyCalculationTest">
             </class>
 
-            <class name="org.InarAcademy.testSuites.order.InvalidCardNumberTests">
+            <class name="org.InarAcademy.testSuites.weborder.order.InvalidCardNumberTests">
             </class>
 
-            <class name="org.InarAcademy.testSuites.viewAllOrders.ViewOrderTest">
+            <class name="org.InarAcademy.testSuites.weborder.viewAllOrders.ViewOrderTest">
             </class>
 
-            <class name="org.InarAcademy.testSuites.viewAllOrders.CheckBoxTest">
+            <class name="org.InarAcademy.testSuites.weborder.viewAllOrders.CheckBoxTest">
             </class>
 
-            <class name="org.InarAcademy.testSuites.viewAllProducts.ViewAllProductsTest">
+            <class name="org.InarAcademy.testSuites.weborder.viewAllProducts.ViewAllProductsTest">
             </class>
 
         </classes>

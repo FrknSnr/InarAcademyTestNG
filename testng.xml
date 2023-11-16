@@ -28,6 +28,9 @@
             <class name="org.InarAcademy.testSuites.weborder.viewAllProducts.ViewAllProductsTest">
             </class>
 
+            <class name="org.InarAcademy.testSuites.targetMarket.LoginTests">
+            </class>
+
         </classes>
     </test>
 </suite>

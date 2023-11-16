@@ -10,6 +10,7 @@
 
             <class name="org.InarAcademy.testSuites.weborder.LoginTests">
             </class>
+
             <class name="org.InarAcademy.testSuites.weborder.LogoutTest">
             </class>
 

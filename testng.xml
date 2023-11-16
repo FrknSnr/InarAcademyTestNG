@@ -7,35 +7,25 @@
 
     <test verbose="2" preserve-order="true" name="InarAcademyTestNG">
         <classes>
-            <class name="org.InarAcademy.testSuites.LoginTest">
-                <methods>
-                    <include name="loginToWebOrder"/>
-                </methods>
+
+            <class name="org.InarAcademy.testSuites.LoginTests">
             </class>
 
             <class name="org.InarAcademy.testSuites.order.VerifyCalculationTest">
-                <methods>
-                    <include name="calculateOrder"/>
-                </methods>
+            </class>
+
+            <class name="org.InarAcademy.testSuites.order.InvalidCardNumberTests">
             </class>
 
             <class name="org.InarAcademy.testSuites.viewAllOrders.ViewOrderTest">
-                <methods>
-                    <include name="placeAndCheckOrder"/>
-                </methods>
             </class>
+
             <class name="org.InarAcademy.testSuites.viewAllOrders.CheckBoxTest">
-                <methods>
-                    <include name="addAndDeleteData"/>
-                </methods>
             </class>
-            <class name="org.InarAcademy.testSuites.order.InvalidCardNumberTests">
-                <methods>
-                    <include name="invalidCardNumberForAmericanExpress"/>
-                    <include name="invalidCardNumberForVisa"/>
-                    <include name="invalidCardNumberForMasterCard"/>
-                </methods>
+
+            <class name="org.InarAcademy.testSuites.viewAllProducts.ViewAllProductsTest">
             </class>
+
         </classes>
     </test>
 </suite>

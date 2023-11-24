@@ -12,6 +12,7 @@ public class LoginTests extends TestBase {
 
     private final static InarConfig conf = new InarConfig();
     LoginPage loginPage;
+    HomePage homePage;
 
     @BeforeMethod
     public void beforeTests() {
@@ -36,8 +37,59 @@ public class LoginTests extends TestBase {
     }
 
     @Test(description = "login with standard user")
-    public void loginWithValidCredentials() {
-        HomePage homePage = loginPage.login(conf.getProperties("target-market.standard.username"), conf.getProperties("target-market.password"));
+    public void loginWithStandardUser() {
+        homePage = loginPage.login(conf.getProperties("target-market.standard.username"), conf.getProperties("target-market.password"));
         Assert.assertEquals(homePage.getWelcomeText(), "Welcome to the Target Market, standard_user!");
+    }
+
+    @Test(description = "login with locked out user")
+    public void loginWithLockedOutUser() {
+        loginPage.login(conf.getProperties("target-market.locked-out.username"), conf.getProperties("target-market.password"));
+        Assert.assertEquals(loginPage.getUserNameErrorMessage(), "Your account is locked.");
+    }
+
+    @Test(description = "login with problem user")
+    public void loginWithProblemUser() {
+        homePage = loginPage.login(conf.getProperties("target-market.problem.username"), conf.getProperties("target-market.password"));
+        Assert.assertEquals(homePage.getWelcomeText(), "Welcome to the Target Market, problem_user!");
+    }
+
+    @Test(description = "login with performance glitch user")
+    public void loginWithPerformanceGlitchUser() {
+        homePage = loginPage.login(conf.getProperties("target-market.performance-glitch.username"), conf.getProperties("target-market.password"));
+        Assert.assertTrue(homePage.isLoadingTextDisplayed());
+        Assert.assertEquals(homePage.getWelcomeText(), "Welcome to the Target Market, performance_glitch_user!");
+    }
+
+    @Test(description = "login with invalid username")
+    public void loginWithInvalidUsername() {
+        loginPage.login("invalid_username", conf.getProperties("target-market.password"));
+        Assert.assertEquals(loginPage.getUserNameErrorMessage(), "Invalid username");
+        Assert.assertEquals(loginPage.getPasswordErrorMessage(), "Invalid password");
+    }
+
+    @Test(description = "login with invalid password")
+    public void loginWithInvalidPassword() {
+        loginPage.login(conf.getProperties("target-market.standard.username"), "invalid_password");
+        Assert.assertEquals(loginPage.getUserNameErrorMessage(), "Invalid username");
+        Assert.assertEquals(loginPage.getPasswordErrorMessage(), "Invalid password");
+    }
+
+    @Test(description = "login with empty username")
+    public void loginWithEmptyUsername() {
+        loginPage.login("", conf.getProperties("target-market.password"));
+        Assert.assertEquals(loginPage.getUserNameErrorMessage(), "Please enter your username");
+    }
+
+    @Test(description = "login with empty password")
+    public void loginWithEmptyPassword() {
+        loginPage.login(conf.getProperties("target-market.standard.username"), "");
+        Assert.assertEquals(loginPage.getPasswordErrorMessage(), "Please enter your password");
+    }
+
+    @Test(description = "check the products are really sorted from A to Z when the user selects 'Sort By: A-Z' option")
+    public void checkProductsSortedAToZ() {
+        homePage = loginPage.login(conf.getProperties("target-market.standard.username"), conf.getProperties("target-market.password"));
+        Assert.assertTrue(homePage.isProductsSortedAToZ());
     }
 }

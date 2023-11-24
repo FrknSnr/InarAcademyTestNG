@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,18 +17,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderPage extends BasePage {
+    private String PRODUCT;
+    private String AMOUNT;
+    private String PERCENTAGE;
+    private String NAME;
+    private String STREET;
+    private String CITY;
+    private String STATE;
+    private String ZIP;
+    private String CARD_TYPE;
+    private String CARD_NO;
+    private String EXPIRE_DATE;
 
-    private final String PRODUCT = "HomeDecor";
-    private final String AMOUNT = "5";
-    private final String PERCENTAGE = "20";
-    private final String NAME = "Inar";
-    private final String STREET = "Congress Ave.";
-    private final String CITY = "Austin";
-    private final String STATE = "TX";
-    private final String ZIP = "78701";
-    private final String CARD_TYPE = "visa";
-    private final String CARD_NO = "4938281746192845";
-    private final String EXPIRE_DATE = "11/28";
+
     @FindBy(className = "order-page")
     private WebElement orderPage;
     @FindBy(id = "productSelect")
@@ -75,15 +75,31 @@ public class OrderPage extends BasePage {
         return orderPage.isDisplayed();
     }
 
-    public void calculate() {
-        selectByText(productDropdown, PRODUCT);
-        determineQuantity(AMOUNT);
-        determineDiscount(PERCENTAGE);
+    public void calculate(String product, String amount, String percentage) {
+        PRODUCT= product;
+        AMOUNT= amount;
+        PERCENTAGE= percentage;
+
+        selectByText(productDropdown, product);
+        determineQuantity(amount);
+        determineDiscount(percentage);
         calculateButton.click();
     }
 
-    public HomePage placeOrder() {
-        calculate();
+    public HomePage placeOrder(String product, String amount, String percentage, String name, String street, String city, String state, String zip, String cardType, String cardNum, String expireDate) {
+        PRODUCT = product;
+        AMOUNT = amount;
+        PERCENTAGE = percentage;
+        NAME = name;
+        STREET = street;
+        CITY = city;
+        STATE = state;
+        ZIP = zip;
+        CARD_TYPE = cardType;
+        CARD_NO = cardNum;
+        EXPIRE_DATE = expireDate;
+
+        calculate(PRODUCT, AMOUNT, PERCENTAGE);
         scrollAndSendKeysToElement(nameBox, NAME);
         scrollAndSendKeysToElement(streetBox, STREET);
         scrollAndSendKeysToElement(cityBox, CITY);
@@ -92,7 +108,7 @@ public class OrderPage extends BasePage {
         //Here we select the "visa" type. So among others, we choose the "visa".
         for (WebElement ele :
                 cardTypeElements) {
-            if ("visa".equalsIgnoreCase(ele.getAttribute("id"))) {
+            if (CARD_TYPE.equalsIgnoreCase(ele.getAttribute("id"))) {
                 scrollAndClickToElement(ele);
             }
         }

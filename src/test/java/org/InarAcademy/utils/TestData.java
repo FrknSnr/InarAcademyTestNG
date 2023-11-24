@@ -2,7 +2,7 @@ package org.InarAcademy.utils;
 
 import org.testng.annotations.DataProvider;
 
-public class TestDatas {
+public class TestData {
 
     @DataProvider(name = "usernameData")
     public Object[][] usernameData() {

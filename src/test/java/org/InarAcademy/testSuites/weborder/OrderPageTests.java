@@ -1,4 +1,4 @@
-package org.InarAcademy.testSuites.weborder.order;
+package org.InarAcademy.testSuites.weborder;
 
 import org.InarAcademy.pages.weborder.HomePage;
 import org.InarAcademy.pages.weborder.LoginPage;
@@ -8,14 +8,24 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class InvalidCardNumberTests extends TestBase {
+public class OrderPageTests extends TestBase {
 
     OrderPage orderPage;
+    HomePage homePage;
 
     @BeforeMethod
     public void beforeTests() {
-        HomePage homePage = new LoginPage(driver).login("Inar", "Academy");
+        homePage = new LoginPage(driver).login("Inar", "Academy");
         orderPage = homePage.goToOrderPage();
+    }
+
+    @Test
+    public void calculateOrder() {
+        OrderPage orderPage = homePage.goToOrderPage();
+        Assert.assertTrue(orderPage.isOrderPageDisplayed());
+
+        orderPage.calculate("HomeDecor", "2","20");
+        Assert.assertEquals(orderPage.getActualTotalPrice(), orderPage.getExpectedTotalPrice());
     }
 
     @Test(description = "Invalid card number not starting with '3' for American Express")

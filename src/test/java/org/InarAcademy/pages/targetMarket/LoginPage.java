@@ -24,6 +24,10 @@ public class LoginPage extends BasePage {
     private WebElement usernameInfoTexts;
     @FindBy(xpath = "//p[@class='text-dark mb-2 text-start d-flex flex-column ms-5']")
     private WebElement passwordInfoTexts;
+    @FindBy(id = "username-error-alert")
+    private WebElement userNameErrorAlert;
+    @FindBy(id = "password-error-alert")
+    private WebElement passwordErrorMessage;
 
 
     public LoginPage(WebDriver driver) {
@@ -68,5 +72,13 @@ public class LoginPage extends BasePage {
 
     public String getPasswordInfoTexts() {
         return passwordInfoTexts.getText();
+    }
+
+    public String getUserNameErrorMessage() {
+        return userNameErrorAlert.getText();
+    }
+
+    public String getPasswordErrorMessage() {
+        return passwordErrorMessage.getText();
     }
 }

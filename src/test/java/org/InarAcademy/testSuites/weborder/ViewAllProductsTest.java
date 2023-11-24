@@ -1,4 +1,4 @@
-package org.InarAcademy.testSuites.weborder.viewAllProducts;
+package org.InarAcademy.testSuites.weborder;
 
 import org.InarAcademy.pages.weborder.HomePage;
 import org.InarAcademy.pages.weborder.LoginPage;

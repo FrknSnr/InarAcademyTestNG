@@ -1,6 +1,7 @@
 package org.InarAcademy.pages.targetMarket;
 
 import org.InarAcademy.pages.BasePage;
+import org.InarAcademy.utils.ReusableMethods;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,11 +9,13 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class HomePage extends BasePage {
 
+    ReusableMethods reusableMethods = new ReusableMethods();
     private static final Logger logger = Logger.getLogger(HomePage.class.getName());
     @FindBy(xpath = "//h5[@class='display-5']")
     private WebElement welcomeText;
@@ -24,6 +27,8 @@ public class HomePage extends BasePage {
     private List<WebElement> productTitles;
     @FindBy(id = "sortType")
     private WebElement sortTypeElement;
+    @FindBy(xpath = "//strong[@class='text-danger']")
+    private List<WebElement> productPrices;
 
 
     public HomePage(WebDriver driver) {
@@ -53,6 +58,22 @@ public class HomePage extends BasePage {
         return true;
     }
 
+    public Boolean isProductsSortedZToA() {
+        Select sortType = new Select(sortTypeElement);
+        for (WebElement tab : tabs
+        ) {
+            List<String> titleList = getProductTitles(tab, sortType, "Z-A");
+            List<String> sortedList = new ArrayList<>(titleList);
+            sortedList.sort(Collections.reverseOrder());
+            if (!sortedList.equals(titleList)) {
+                logMismatchDetails(tab.getText(), titleList, sortedList);
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     public List<String> getProductTitles(WebElement tab, Select sortType, String sortTypeText) {
         tab.click();
         sortType.selectByVisibleText(sortTypeText);
@@ -62,6 +83,73 @@ public class HomePage extends BasePage {
             titleList.add(productTitle.getText().toLowerCase());
         }
         return titleList;
+    }
+
+    public List<String> getProductPrices(WebElement tab, Select sortType, String sortTypeText) {
+        tab.click();
+        sortType.selectByVisibleText(sortTypeText);
+
+        List<String> titleList = new ArrayList<>();
+        for (WebElement productPrice : productPrices) {
+            titleList.add(reusableMethods.getSubstringOfText(productPrice.getText(), 1, productPrice.getText().length()));
+        }
+        return titleList;
+    }
+
+    public Boolean isProductsSortedHighToLow() {
+        Select sortType = new Select(sortTypeElement);
+        for (WebElement tab : tabs
+        ) {
+            List<String> priceList = getProductPrices(tab, sortType, "Highest Price");
+
+            List<Integer> integerList = new ArrayList<>();
+            for (String price : priceList
+            ) {
+                int priceInt = Integer.parseInt(price);
+                integerList.add(priceInt);
+            }
+
+            integerList.sort(Collections.reverseOrder());
+
+            List<String> sortedList = new ArrayList<>();
+            for (int price : integerList
+            ) {
+                sortedList.add(String.valueOf(price));
+            }
+            if (!sortedList.equals(priceList)) {
+                logMismatchDetails(tab.getText(), priceList, sortedList);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public Boolean isProductsSortedLowToHigh() {
+        Select sortType = new Select(sortTypeElement);
+        for (WebElement tab : tabs
+        ) {
+            List<String> priceList = getProductPrices(tab, sortType, "Lowest Price");
+
+            List<Integer> integerList = new ArrayList<>();
+            for (String price : priceList
+            ) {
+                int priceInt = Integer.parseInt(price);
+                integerList.add(priceInt);
+            }
+
+            Collections.sort(integerList);
+
+            List<String> sortedList = new ArrayList<>();
+            for (int price : integerList
+            ) {
+                sortedList.add(String.valueOf(price));
+            }
+            if (!sortedList.equals(priceList)) {
+                logMismatchDetails(tab.getText(), priceList, sortedList);
+                return false;
+            }
+        }
+        return true;
     }
 
     private void logMismatchDetails(String tabText, List<String> titleList, List<String> sortedList) {

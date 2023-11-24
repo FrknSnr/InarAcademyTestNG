@@ -86,10 +86,4 @@ public class LoginTests extends TestBase {
         loginPage.login(conf.getProperties("target-market.standard.username"), "");
         Assert.assertEquals(loginPage.getPasswordErrorMessage(), "Please enter your password");
     }
-
-    @Test(description = "check the products are really sorted from A to Z when the user selects 'Sort By: A-Z' option")
-    public void checkProductsSortedAToZ() {
-        homePage = loginPage.login(conf.getProperties("target-market.standard.username"), conf.getProperties("target-market.password"));
-        Assert.assertTrue(homePage.isProductsSortedAToZ());
-    }
 }

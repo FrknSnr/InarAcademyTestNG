@@ -29,6 +29,9 @@
             <class name="org.InarAcademy.testSuites.targetMarket.SortingTests">
             </class>
 
+            <class name="org.InarAcademy.testSuites.targetMarket.CheckoutTests">
+            </class>
+
         </classes>
     </test>
 </suite>

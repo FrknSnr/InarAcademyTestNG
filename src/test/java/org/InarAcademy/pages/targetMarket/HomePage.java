@@ -6,20 +6,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class HomePage extends BasePage {
 
-    ReusableMethods reusableMethods = new ReusableMethods();
     private static final Logger logger = Logger.getLogger(HomePage.class.getName());
-    @FindBy(xpath = "//h5[@class='display-5']")
+
+    @FindBy(css = ".display-5")
     private WebElement welcomeText;
-    @FindBy(xpath = "//div[contains(text(), 'Loading...')]\n")
+    @FindBy(xpath = "//div[contains(text(), 'Loading...')]")
     private WebElement loading;
     @FindBy(xpath = "//a[@role='tab']")
     private List<WebElement> tabs;
@@ -29,6 +27,10 @@ public class HomePage extends BasePage {
     private WebElement sortTypeElement;
     @FindBy(xpath = "//strong[@class='text-danger']")
     private List<WebElement> productPrices;
+    @FindBy(xpath = "//button[@class='btn btn-danger fs-3 w-100']")
+    private List<WebElement> addToCartButtons;
+    @FindBy(css = ".mx-3:nth-of-type(2)")
+    private WebElement cartButton;
 
 
     public HomePage(WebDriver driver) {
@@ -75,7 +77,7 @@ public class HomePage extends BasePage {
 
 
     public List<String> getProductTitles(WebElement tab, Select sortType, String sortTypeText) {
-        tab.click();
+        ReusableMethods.scrollAndClickToElement(driver, tab);
         sortType.selectByVisibleText(sortTypeText);
 
         List<String> titleList = new ArrayList<>();
@@ -86,12 +88,12 @@ public class HomePage extends BasePage {
     }
 
     public List<String> getProductPrices(WebElement tab, Select sortType, String sortTypeText) {
-        tab.click();
+        ReusableMethods.scrollAndClickToElement(driver, tab);
         sortType.selectByVisibleText(sortTypeText);
 
         List<String> titleList = new ArrayList<>();
         for (WebElement productPrice : productPrices) {
-            titleList.add(reusableMethods.getSubstringOfText(productPrice.getText(), 1, productPrice.getText().length()));
+            titleList.add(ReusableMethods.getSubstringOfText(productPrice.getText(), 1, productPrice.getText().length()));
         }
         return titleList;
     }
@@ -150,6 +152,28 @@ public class HomePage extends BasePage {
             }
         }
         return true;
+    }
+
+    public void placeOrder(String tabName, String productName) {
+        for (WebElement tabElement : tabs
+        ) {
+            if (tabElement.getText().equalsIgnoreCase(tabName)) {
+                ReusableMethods.scrollAndClickToElement(driver, tabElement);
+                break;
+            }
+        }
+        for (int i = 0; i < productTitles.size(); i++) {
+            if (productTitles.get(i).getText().equalsIgnoreCase(productName)) {
+                ReusableMethods.scrollAndClickToElement(driver, addToCartButtons.get(i));
+                break;
+            }
+        }
+        ReusableMethods.scrollToTopOfThePage(driver);
+    }
+
+    public ShoppingCartModalPage goToCart() {
+        ReusableMethods.scrollAndClickToElement(driver, cartButton);
+        return new ShoppingCartModalPage(driver);
     }
 
     private void logMismatchDetails(String tabText, List<String> titleList, List<String> sortedList) {

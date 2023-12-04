@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class LoginTests extends TestBase {
 
-    private final static InarConfig conf = new InarConfig();
+    private final InarConfig conf = new InarConfig();
     LoginPage loginPage;
     HomePage homePage;
 

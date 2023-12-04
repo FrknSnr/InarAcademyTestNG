@@ -1,18 +1,12 @@
 package org.InarAcademy.pages.weborder;
 
 import org.InarAcademy.pages.BasePage;
+import org.InarAcademy.utils.ReusableMethods;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +48,7 @@ public class OrderPage extends BasePage {
     private WebElement stateBox;
     @FindBy(id = "zip")
     private WebElement zipBox;
-    @FindBy(xpath = "//input[@name='cardType']")
+    @FindBy(css = "input[name='cardType']")
     private List<WebElement> cardTypeElements;
     @FindBy(id = "cardNumber")
     private WebElement cardNumberBox;
@@ -76,11 +70,11 @@ public class OrderPage extends BasePage {
     }
 
     public void calculate(String product, String amount, String percentage) {
-        PRODUCT= product;
-        AMOUNT= amount;
-        PERCENTAGE= percentage;
+        PRODUCT = product;
+        AMOUNT = amount;
+        PERCENTAGE = percentage;
 
-        selectByText(productDropdown, product);
+        ReusableMethods.selectByText(productDropdown, product);
         determineQuantity(amount);
         determineDiscount(percentage);
         calculateButton.click();
@@ -100,20 +94,20 @@ public class OrderPage extends BasePage {
         EXPIRE_DATE = expireDate;
 
         calculate(PRODUCT, AMOUNT, PERCENTAGE);
-        scrollAndSendKeysToElement(nameBox, NAME);
-        scrollAndSendKeysToElement(streetBox, STREET);
-        scrollAndSendKeysToElement(cityBox, CITY);
-        scrollAndSendKeysToElement(stateBox, STATE);
-        scrollAndSendKeysToElement(zipBox, ZIP);
+        ReusableMethods.scrollAndSendKeysToElement(driver, nameBox, NAME);
+        ReusableMethods.scrollAndSendKeysToElement(driver, streetBox, STREET);
+        ReusableMethods.scrollAndSendKeysToElement(driver, cityBox, CITY);
+        ReusableMethods.scrollAndSendKeysToElement(driver, stateBox, STATE);
+        ReusableMethods.scrollAndSendKeysToElement(driver, zipBox, ZIP);
         //Here we select the "visa" type. So among others, we choose the "visa".
         for (WebElement ele :
                 cardTypeElements) {
             if (CARD_TYPE.equalsIgnoreCase(ele.getAttribute("id"))) {
-                scrollAndClickToElement(ele);
+                ReusableMethods.scrollAndClickToElement(driver, ele);
             }
         }
-        scrollAndSendKeysToElement(cardNumberBox, CARD_NO);
-        scrollAndSendKeysToElement(expiryDateBox, EXPIRE_DATE);
+        ReusableMethods.scrollAndSendKeysToElement(driver, cardNumberBox, CARD_NO);
+        ReusableMethods.scrollAndSendKeysToElement(driver, expiryDateBox, EXPIRE_DATE);
         try {
             processButton.click();
         } catch (ElementClickInterceptedException exception) {
@@ -128,7 +122,7 @@ public class OrderPage extends BasePage {
         list.add(NAME);
         list.add(PRODUCT);
         list.add(AMOUNT);
-        list.add(getCurrentDate());
+        list.add(ReusableMethods.getCurrentDate());
         list.add(STREET);
         list.add(CITY);
         list.add(STATE);
@@ -137,37 +131,6 @@ public class OrderPage extends BasePage {
         list.add(CARD_NO);
         list.add(EXPIRE_DATE);
         return list;
-    }
-
-    private String getCurrentDate() {
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        return currentDate.format(formatter);
-    }
-
-    private void scrollAndClickToElement(WebElement element) {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(element);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-        try {
-            element.click();
-        } catch (ElementClickInterceptedException exception) {
-            element.click();
-        }
-    }
-
-    private void scrollAndSendKeysToElement(WebElement element, String keys) {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(element);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOf(element));
-        element.sendKeys(keys);
-    }
-
-    private void selectByText(WebElement element, String visibleText) {
-        Select dropdown = new Select(element);
-        dropdown.selectByVisibleText(visibleText);
     }
 
     private void determineQuantity(String desiredQuantity) {
@@ -179,28 +142,24 @@ public class OrderPage extends BasePage {
     }
 
     public int getActualTotalPrice() {
-        return stringToInteger(totalPrice.getAttribute("value"));
+        return ReusableMethods.stringToInteger(totalPrice.getAttribute("value"));
     }
 
     public int getExpectedTotalPrice() {
-        int unitPriceOfProduct = stringToInteger(unitPrice.getAttribute("value"));
-        return (stringToInteger(AMOUNT) * unitPriceOfProduct) - (int) (stringToInteger(AMOUNT) * unitPriceOfProduct * stringToInteger(PERCENTAGE) / 100.0);
-    }
-
-    private int stringToInteger(String value) {
-        return Integer.parseInt(value);
+        int unitPriceOfProduct = ReusableMethods.stringToInteger(unitPrice.getAttribute("value"));
+        return (ReusableMethods.stringToInteger(AMOUNT) * unitPriceOfProduct) - (int) (ReusableMethods.stringToInteger(AMOUNT) * unitPriceOfProduct * ReusableMethods.stringToInteger(PERCENTAGE) / 100.0);
     }
 
     public String fillPaymentInformations(String cardType, String cardNum, String expireDate) {
         for (WebElement ele :
                 cardTypeElements) {
             if (cardType.equalsIgnoreCase(ele.getAttribute("value"))) {
-                scrollAndClickToElement(ele);
+                ReusableMethods.scrollAndClickToElement(driver, ele);
             }
         }
-        scrollAndSendKeysToElement(cardNumberBox, cardNum);
-        scrollAndSendKeysToElement(expiryDateBox, expireDate);
-        scrollAndClickToElement(processButton);
+        ReusableMethods.scrollAndSendKeysToElement(driver, cardNumberBox, cardNum);
+        ReusableMethods.scrollAndSendKeysToElement(driver, expiryDateBox, expireDate);
+        ReusableMethods.scrollAndClickToElement(driver, processButton);
         return cardNumberIsNotValidMessage.getText();
     }
 }

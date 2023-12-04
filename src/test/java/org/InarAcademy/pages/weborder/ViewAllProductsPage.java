@@ -11,7 +11,6 @@ import java.util.List;
 
 public class ViewAllProductsPage extends BasePage {
 
-    ReusableMethods reusableMethods = new ReusableMethods();
     @FindBy(xpath = "(//td)")
     private List<WebElement> sections;
 
@@ -37,7 +36,7 @@ public class ViewAllProductsPage extends BasePage {
     public int getNumberOfPrices() {
         List<Integer> priceList = new ArrayList<>();
         for (int i = 1; i < sections.size()-1; i += 3) {
-            int price = Integer.parseInt(reusableMethods.getSubstringOfText(sections.get(i).getText(), 2, (sections.get(i).getText().length())));
+            int price = Integer.parseInt(ReusableMethods.getSubstringOfText(sections.get(i).getText(), 2, (sections.get(i).getText().length())));
             if (price > 0) {
                 priceList.add(price);
             }
@@ -49,7 +48,7 @@ public class ViewAllProductsPage extends BasePage {
         HashMap<String, Integer> map = new HashMap<>();
         for (int i = 0; i < sections.size() - 2; i += 3) {
             String productName = sections.get(i).getText();
-            int discount = Integer.parseInt(reusableMethods.getSubstringOfText(sections.get(i + 2).getText(), 0, (sections.get(i + 2).getText().length() - 2)));
+            int discount = Integer.parseInt(ReusableMethods.getSubstringOfText(sections.get(i + 2).getText(), 0, (sections.get(i + 2).getText().length() - 2)));
             map.put(productName, discount);
         }
         return map;

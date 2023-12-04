@@ -36,8 +36,8 @@ public class ViewAllOrdersTests extends TestBase {
         first, we place order.
          */
         ViewAllOrdersPage viewAllOrdersPage = orderPage.placeOrder(
-                "FamilyAlbum","2","15","Inar","Congress Ave.","Austin",
-                "TX","78701","visa","4938281746192845","11/28")
+                        "FamilyAlbum", "2", "15", "Inar", "Congress Ave.", "Austin",
+                        "TX", "78701", "visa", "4938281746192845", "11/28")
                 .goToViewAllOrdersPage();
         Assert.assertEquals(viewAllOrdersPage.getViewAllOrdersText(), "View All Orders");
         /*

@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class SortingTests extends TestBase {
 
-    private final static InarConfig conf = new InarConfig();
+    private final InarConfig conf = new InarConfig();
     HomePage homePage;
     LoginPage loginPage;
 

@@ -7,6 +7,7 @@ import org.InarAcademy.testSuites.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
 import java.util.HashMap;
 
 public class ViewAllProductsTest extends TestBase {

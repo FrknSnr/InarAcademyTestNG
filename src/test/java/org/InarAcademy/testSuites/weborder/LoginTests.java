@@ -1,9 +1,10 @@
 package org.InarAcademy.testSuites.weborder;
 
+import org.InarAcademy.dataProvider.UsernameData;
 import org.InarAcademy.pages.weborder.HomePage;
 import org.InarAcademy.pages.weborder.LoginPage;
 import org.InarAcademy.testSuites.TestBase;
-import org.InarAcademy.utils.TestData;
+import org.InarAcademy.dataProvider.PasswordData;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -33,13 +34,13 @@ public class LoginTests extends TestBase {
         Assert.assertEquals(homePage.getWelcomeText(), "Welcome, Inar!");
     }
 
-    @Test(dataProvider = "usernameData", dataProviderClass = TestData.class)
+    @Test(dataProvider = "usernameData", dataProviderClass = UsernameData.class)
     public void loginWithInvalidUsername(String username, String password, String alertMessage) {
         loginPage.login(username, password);
         Assert.assertEquals(loginPage.getUsernameAlertMessage(), alertMessage);
     }
 
-    @Test(dataProvider = "passwordData", dataProviderClass = TestData.class)
+    @Test(dataProvider = "passwordData", dataProviderClass = PasswordData.class)
     public void loginWithInvalidPassword(String username, String password, String alertMessage) {
         loginPage.login(username, password);
         Assert.assertEquals(loginPage.getPasswordAlertMessage(), alertMessage);

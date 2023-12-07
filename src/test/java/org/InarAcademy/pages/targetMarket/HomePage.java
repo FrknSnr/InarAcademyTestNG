@@ -15,7 +15,7 @@ public class HomePage extends BasePage {
 
     private static final Logger logger = Logger.getLogger(HomePage.class.getName());
 
-    @FindBy(css = ".display-5")
+    @FindBy(css = "h5[class='display-5']")
     private WebElement welcomeText;
     @FindBy(xpath = "//div[contains(text(), 'Loading...')]")
     private WebElement loading;
@@ -168,7 +168,6 @@ public class HomePage extends BasePage {
                 break;
             }
         }
-        ReusableMethods.scrollToTopOfThePage(driver);
     }
 
     public ShoppingCartModalPage goToCart() {

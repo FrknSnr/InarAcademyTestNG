@@ -8,9 +8,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class ReusableMethods {
     static WebDriverWait wait;
@@ -56,8 +63,38 @@ public class ReusableMethods {
         return currentDate.format(formatter);
     }
 
-    public static void scrollToTopOfThePage(WebDriver driver) {
-        Actions actions = new Actions(driver);
-        actions.moveToLocation(0,0).build().perform();
+    public static Object[][] getCsvData(String csvFileNameWithRelative, String splitCharacter) {
+
+        ArrayList<ArrayList<String>> datas = new ArrayList<>();
+        ArrayList<String> data;
+        String[] temp = null;
+        try {
+            // parsing a CSV file into BufferedReader class constructor
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFileNameWithRelative), StandardCharsets.UTF_8));
+            br.readLine(); // dummy reading to header (columns name)
+
+            String line;
+            while ((line = br.readLine()) != null) // returns a Boolean value
+            {
+                data = new ArrayList<>();
+                temp = line.split(splitCharacter); // use comma as separator
+                Collections.addAll(data, temp);
+                datas.add(data);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(datas);
+        // [[Ayse, female, Argentina], [Hatice, female, Belarus], [Zeynep, female, Argentina]]
+        // [[us1, pass1], [us2, pass2], [us3, pass3]]
+        assert temp != null;
+        Object[][] objArray = new Object[datas.size()][temp.length]; // too dynamic
+        for (int i = 0; i < objArray.length; i++) {
+            // ArrayList to Array (toArray())
+            objArray[i] = datas.get(i).toArray(); // datas.toArray() -> ArrayList -> Array ****onemli
+            // Array to ArrayList (Arrays.asList(array))
+        }
+        // System.out.println(Arrays.toString(objArray[0]));
+        return objArray;
     }
 }

@@ -6,14 +6,11 @@ import org.InarAcademy.pages.targetMarket.HomePage;
 import org.InarAcademy.pages.targetMarket.LoginPage;
 import org.InarAcademy.pages.targetMarket.ShoppingCartModalPage;
 import org.InarAcademy.testSuites.TestBase;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class CheckoutTests extends TestBase {
-
-    private final InarConfig conf = new InarConfig();
     LoginPage loginPage;
     HomePage homePage;
     ShoppingCartModalPage shoppingCartModalPage;
@@ -32,7 +29,7 @@ public class CheckoutTests extends TestBase {
 
     @BeforeMethod(groups = "standardUser")
     public void loginAsStandardUser() {
-        homePage = loginPage.login(conf.getProperties("target-market.standard.username"), conf.getProperties("target-market.password"));
+        homePage = loginPage.login(InarConfig.getProperty("target-market.standard.username"), InarConfig.getProperty("target-market.password"));
     }
 
 
@@ -42,9 +39,9 @@ public class CheckoutTests extends TestBase {
         String productName = "MacBook Pro";
         homePage.placeOrder("Laptops", productName);
         shoppingCartModalPage = homePage.goToCart();
-        double totalPriceOfAllItems = Double.parseDouble(shoppingCartModalPage.getTotalPriceOfAllItems());
-        String formattedTotalPriceOfAllItems = String.format("Total Price: $%.2f", totalPriceOfAllItems);
-        int totalNumberOfItems = shoppingCartModalPage.getTotalNumberOfItems();
+
+        shoppingCartModalPage.setTotalPriceOfAllItems();
+        shoppingCartModalPage.setTotalNumberOfItems();
 
         Assert.assertEquals((shoppingCartModalPage.getPricePerItem(productName) * shoppingCartModalPage.getNumberOfItem(productName))
                 , shoppingCartModalPage.getTotalPriceOfEachItem(productName));
@@ -56,8 +53,8 @@ public class CheckoutTests extends TestBase {
         Assert.assertTrue(checkoutPage.isThanksMessageTitleDisplayed());
         Assert.assertEquals(checkoutPage.getHelloUserMessage(), "Hello, " + firstName + " " + lastName + "!");
         Assert.assertEquals(checkoutPage.getOrderReceivedMessage(), "Your order has been received.");
-        Assert.assertEquals(checkoutPage.getTotalPriceMessage(), formattedTotalPriceOfAllItems);
-        Assert.assertEquals(checkoutPage.getTotalProductCountMessage(), "Total Product Count: " + totalNumberOfItems);
+        Assert.assertEquals(checkoutPage.getTotalPriceMessage(), InarConfig.getProperty("target-market.total-price-of-all-items"));
+        Assert.assertEquals(checkoutPage.getTotalProductCountMessage(), "Total Product Count: " + InarConfig.getProperty("target-market.total-number-of-items"));
     }
 
 
@@ -69,9 +66,9 @@ public class CheckoutTests extends TestBase {
         homePage.placeOrder("Smartphones", productName);
         shoppingCartModalPage = homePage.goToCart();
         shoppingCartModalPage.increaseAmountBy(productName, 3);
-        double totalPriceOfAllItems = Double.parseDouble(shoppingCartModalPage.getTotalPriceOfAllItems());
-        String formattedTotalPriceOfAllItems = String.format("Total Price: $%.2f", totalPriceOfAllItems);
-        int totalNumberOfItems = shoppingCartModalPage.getTotalNumberOfItems();
+
+        shoppingCartModalPage.setTotalPriceOfAllItems();
+        shoppingCartModalPage.setTotalNumberOfItems();
 
         Assert.assertEquals((shoppingCartModalPage.getPricePerItem(productName) * shoppingCartModalPage.getNumberOfItem(productName))
                 , shoppingCartModalPage.getTotalPriceOfEachItem(productName));
@@ -83,8 +80,8 @@ public class CheckoutTests extends TestBase {
         Assert.assertTrue(checkoutPage.isThanksMessageTitleDisplayed());
         Assert.assertEquals(checkoutPage.getHelloUserMessage(), "Hello, " + firstName + " " + lastName + "!");
         Assert.assertEquals(checkoutPage.getOrderReceivedMessage(), "Your order has been received.");
-        Assert.assertEquals(checkoutPage.getTotalPriceMessage(), formattedTotalPriceOfAllItems);
-        Assert.assertEquals(checkoutPage.getTotalProductCountMessage(), "Total Product Count: " + totalNumberOfItems);
+        Assert.assertEquals(checkoutPage.getTotalPriceMessage(), InarConfig.getProperty("target-market.total-price-of-all-items"));
+        Assert.assertEquals(checkoutPage.getTotalProductCountMessage(), "Total Product Count: " + InarConfig.getProperty("target-market.total-number-of-items"));
     }
 
     @Test(groups = "standardUser",
@@ -96,4 +93,32 @@ public class CheckoutTests extends TestBase {
         shoppingCartModalPage.decreaseAmountBy(productName, 1);
         Assert.assertEquals(shoppingCartModalPage.getEmptyCartMessage(), "Your cart is empty.");
     }
+
+/*    @Test(groups = "standardUser",
+            description = "We place order for more than one product and check the order details.")
+    public void placeOrderForMultipleProducts() {
+        String productName1 = "MacBook Pro";
+        String productName2 = "iPhone X";
+        homePage.placeOrder("Laptops", productName1);
+        homePage.placeOrder("Smartphones", productName2);
+        shoppingCartModalPage = homePage.goToCart();
+
+        shoppingCartModalPage.setTotalPriceOfAllItems();
+        shoppingCartModalPage.setTotalNumberOfItems();
+
+        Assert.assertEquals((shoppingCartModalPage.getPricePerItem(productName1) * shoppingCartModalPage.getNumberOfItem(productName1))
+                , shoppingCartModalPage.getTotalPriceOfEachItem(productName1));
+        Assert.assertEquals((shoppingCartModalPage.getPricePerItem(productName2) * shoppingCartModalPage.getNumberOfItem(productName2))
+                , shoppingCartModalPage.getTotalPriceOfEachItem(productName2));
+
+        checkoutPage = shoppingCartModalPage.goToCheckout();
+        Assert.assertEquals(checkoutPage.getCheckoutPageUrl(), "https://inar-academy.netlify.app/target-market/checkout");
+        checkoutPage.fillCheckoutForm(firstName, lastName, address, cardNumber, phoneNumber);
+        checkoutPage.submitCheckout();
+        Assert.assertTrue(checkoutPage.isThanksMessageTitleDisplayed());
+        Assert.assertEquals(checkoutPage.getHelloUserMessage(), "Hello, " + firstName + " " + lastName + "!");
+        Assert.assertEquals(checkoutPage.getOrderReceivedMessage(), "Your order has been received.");
+        Assert.assertEquals(checkoutPage.getTotalPriceMessage(), InarConfig.getProperty("target-market.total-price-of-all-items"));
+        Assert.assertEquals(checkoutPage.getTotalProductCountMessage(), "Total Product Count: " + InarConfig.getProperty("target-market.total-number-of-items"));
+    }*/
 }

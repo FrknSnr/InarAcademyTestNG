@@ -1,5 +1,6 @@
 package org.InarAcademy.pages.targetMarket;
 
+import org.InarAcademy.InarConfig;
 import org.InarAcademy.pages.BasePage;
 import org.InarAcademy.utils.ReusableMethods;
 import org.openqa.selenium.WebDriver;
@@ -67,20 +68,21 @@ public class ShoppingCartModalPage extends BasePage {
         return numberOfItem;
     }
 
-    public int getTotalNumberOfItems() {
+    public void setTotalNumberOfItems() {
         int totalNumberOfItems = 0;
         for (WebElement element : numberOfItem) {
             totalNumberOfItems += Integer.parseInt(element.getText());
         }
-        return totalNumberOfItems;
+        InarConfig.setProperty("target-market.total-number-of-items", String.valueOf(totalNumberOfItems));
     }
 
-    public String getTotalPriceOfAllItems() {
+    public void setTotalPriceOfAllItems() {
         String totalPrice = totalPriceElement.getText();
         int startIndex = totalPrice.indexOf('$') + 1;
         int endIndex = totalPrice.length();
         totalPrice = ReusableMethods.getSubstringOfText(totalPrice, startIndex, endIndex);
-        return totalPrice;
+        double totalPriceOfAllItems = Double.parseDouble(totalPrice);
+        InarConfig.setProperty("target-market.total-price-of-all-items", String.format("Total Price: $%.2f", totalPriceOfAllItems));
     }
 
     public void increaseAmountBy(String itemName, int amount) {

@@ -84,7 +84,6 @@ public class ReusableMethods {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(datas);
         // [[Ayse, female, Argentina], [Hatice, female, Belarus], [Zeynep, female, Argentina]]
         // [[us1, pass1], [us2, pass2], [us3, pass3]]
         assert temp != null;

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suites">
+    <listeners>
+        <listener class-name="org.InarAcademy.listeners.SimpleITestListener"/>
+    </listeners>
+
+    <test verbose="2" name="InarAcademyTestNG">
+        <classes>
+            <class name="org.InarAcademy.testSuites.weborder.LoginTests"/>
+            <class name="org.InarAcademy.testSuites.weborder.LogoutTests"/>
+            <class name="org.InarAcademy.testSuites.weborder.OrderPageTests"/>
+            <class name="org.InarAcademy.testSuites.weborder.ViewAllOrdersTests"/>
+            <class name="org.InarAcademy.testSuites.weborder.ViewAllProductsTest"/>
+            <class name="org.InarAcademy.testSuites.targetMarket.LoginTests"/>
+            <class name="org.InarAcademy.testSuites.targetMarket.SortingTests"/>
+            <class name="org.InarAcademy.testSuites.targetMarket.CheckoutTests"/>
+        </classes>
+    </test>
+</suite>

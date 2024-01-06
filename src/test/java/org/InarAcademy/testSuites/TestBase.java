@@ -9,13 +9,13 @@ public class TestBase {
 
     protected WebDriver driver;
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"smoke"})
     public void setup() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
 
-    @AfterMethod
+    @AfterMethod(groups = {"smoke"})
     public void tearDown() {
         if (driver != null) {
             driver.quit();

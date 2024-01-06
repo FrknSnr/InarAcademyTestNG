@@ -10,7 +10,7 @@ import org.testng.ITestResult;
 public class SimpleITestListener implements ITestListener {
 
     private static final ExtentReports extent = new ExtentReports();
-    private static final ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
+    private static final ThreadLocal<ExtentTest> test = new ThreadLocal<>();
 
 
     @Override
@@ -21,19 +21,18 @@ public class SimpleITestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        ExtentTest test = extent.createTest(result.getMethod().getMethodName());
-        extentTest.set(test);
+        test.set(extent.createTest(result.getMethod().getMethodName()));
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
         System.out.println("Test Passed: " + result.getName());
-        extentTest.get().pass("Test ahahahahahahaha");
+        test.get().pass("Test passed");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        extentTest.get().fail(result.getThrowable());
+        test.get().fail(result.getThrowable());
     }
 
     @Override

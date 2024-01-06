@@ -18,7 +18,7 @@ public class LoginTests extends TestBase {
         loginPage = new LoginPage(driver);
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void loginScreenDefaultView() {
         Assert.assertTrue(loginPage.isUsernameInputDisplayed());
         Assert.assertTrue(loginPage.isPasswordInputDisplayed());

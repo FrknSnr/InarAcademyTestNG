@@ -1,7 +1,7 @@
 package org.InarAcademy.testSuites.weborder;
 
 import org.InarAcademy.pages.weborder.HomePage;
-import org.InarAcademy.pages.weborder.LoginPage;
+import org.InarAcademy.pages.weborder.WeborderLoginPage;
 import org.InarAcademy.testSuites.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -9,18 +9,18 @@ import org.testng.annotations.Test;
 
 public class LogoutTests extends TestBase {
 
-    LoginPage loginPage;
+    WeborderLoginPage weborderLoginPage;
     HomePage homePage;
 
     @BeforeMethod
     public void beforeTests() {
-        loginPage = new LoginPage(driver);
-        homePage = loginPage.login("Inar", "Academy");
+        weborderLoginPage = new WeborderLoginPage(driver);
+        homePage = weborderLoginPage.login("Inar", "Academy");
     }
 
     @Test
     public void logoutTest() {
-        loginPage = homePage.logout();
-        Assert.assertEquals(loginPage.getLoginScreenTitle(), "Login");
+        weborderLoginPage = homePage.logout();
+        Assert.assertEquals(weborderLoginPage.getLoginScreenTitle(), "Login");
     }
 }

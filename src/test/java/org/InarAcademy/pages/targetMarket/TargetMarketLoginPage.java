@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 
-public class LoginPage extends BasePage {
+public class TargetMarketLoginPage extends BasePage {
 
     @FindBy(xpath = "(//strong)[1]")
     private WebElement title;
@@ -30,7 +30,7 @@ public class LoginPage extends BasePage {
     private WebElement passwordErrorMessage;
 
 
-    public LoginPage(WebDriver driver) {
+    public TargetMarketLoginPage(WebDriver driver) {
         super(driver);
         driver.get("https://inar-academy.netlify.app/target-market");
     }

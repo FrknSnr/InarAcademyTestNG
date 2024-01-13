@@ -1,7 +1,7 @@
 package org.InarAcademy.testSuites.weborder;
 
 import org.InarAcademy.pages.weborder.HomePage;
-import org.InarAcademy.pages.weborder.LoginPage;
+import org.InarAcademy.pages.weborder.WeborderLoginPage;
 import org.InarAcademy.pages.weborder.ViewAllProductsPage;
 import org.InarAcademy.testSuites.TestBase;
 import org.testng.Assert;
@@ -15,7 +15,7 @@ public class ViewAllProductsTest extends TestBase {
 
     @BeforeMethod
     public void beforeTests() {
-        HomePage homePage = new LoginPage(driver).login("Inar", "Academy");
+        HomePage homePage = new WeborderLoginPage(driver).login("Inar", "Academy");
         viewAllProductsPage = homePage.goToViewAllProductsPage();
         Assert.assertEquals(viewAllProductsPage.getViewAllProductsText(), "View All Products");
     }
@@ -42,6 +42,5 @@ public class ViewAllProductsTest extends TestBase {
         productDiscountsMap.put("ToysGames", 10);
 
         Assert.assertEquals(productDiscountsMap, viewAllProductsPage.getProductDiscountMap());
-
     }
 }

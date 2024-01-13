@@ -5,7 +5,7 @@
         <listener class-name="org.InarAcademy.listeners.SimpleITestListener"/>
     </listeners>
 
-    <test verbose="2" name="InarAcademyTestNG">
+    <test name="InarAcademyTestNG">
         <classes>
             <class name="org.InarAcademy.testSuites.weborder.LoginTests"/>
             <class name="org.InarAcademy.testSuites.weborder.LogoutTests"/>

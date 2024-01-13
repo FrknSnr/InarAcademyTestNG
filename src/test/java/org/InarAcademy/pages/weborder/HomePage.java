@@ -47,8 +47,8 @@ public class HomePage extends BasePage {
         return new ViewAllProductsPage(driver);
     }
 
-    public LoginPage logout() {
+    public WeborderLoginPage logout() {
         logoutButton.click();
-        return new LoginPage(driver);
+        return new WeborderLoginPage(driver);
     }
 }

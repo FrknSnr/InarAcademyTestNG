@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LoginPage extends BasePage {
+public class WeborderLoginPage extends BasePage {
 
     @FindBy(id = "login-username-input")
     private WebElement usernameInput;
@@ -27,7 +27,7 @@ public class LoginPage extends BasePage {
     private WebElement passwordInfoText;
 
 
-    public LoginPage(WebDriver driver) {
+    public WeborderLoginPage(WebDriver driver) {
         super(driver);
         driver.get("https://inar-academy.netlify.app/weborder");
     }

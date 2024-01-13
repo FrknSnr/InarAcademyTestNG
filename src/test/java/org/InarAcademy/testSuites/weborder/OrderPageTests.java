@@ -1,7 +1,7 @@
 package org.InarAcademy.testSuites.weborder;
 
 import org.InarAcademy.pages.weborder.HomePage;
-import org.InarAcademy.pages.weborder.LoginPage;
+import org.InarAcademy.pages.weborder.WeborderLoginPage;
 import org.InarAcademy.pages.weborder.OrderPage;
 import org.InarAcademy.testSuites.TestBase;
 import org.testng.Assert;
@@ -15,7 +15,7 @@ public class OrderPageTests extends TestBase {
 
     @BeforeMethod
     public void beforeTests() {
-        homePage = new LoginPage(driver).login("Inar", "Academy");
+        homePage = new WeborderLoginPage(driver).login("Inar", "Academy");
         orderPage = homePage.goToOrderPage();
     }
 

@@ -3,7 +3,7 @@ package org.InarAcademy.testSuites.targetMarket;
 import org.InarAcademy.InarConfig;
 import org.InarAcademy.pages.targetMarket.CheckoutPage;
 import org.InarAcademy.pages.targetMarket.HomePage;
-import org.InarAcademy.pages.targetMarket.LoginPage;
+import org.InarAcademy.pages.targetMarket.TargetMarketLoginPage;
 import org.InarAcademy.pages.targetMarket.ShoppingCartModalPage;
 import org.InarAcademy.testSuites.TestBase;
 import org.testng.Assert;
@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class CheckoutTests extends TestBase {
-    LoginPage loginPage;
+    TargetMarketLoginPage targetMarketLoginPage;
     HomePage homePage;
     ShoppingCartModalPage shoppingCartModalPage;
     CheckoutPage checkoutPage;
@@ -24,12 +24,12 @@ public class CheckoutTests extends TestBase {
 
     @BeforeMethod
     public void beforeTests() {
-        loginPage = new LoginPage(driver);
+        targetMarketLoginPage = new TargetMarketLoginPage(driver);
     }
 
     @BeforeMethod(groups = "standardUser")
     public void loginAsStandardUser() {
-        homePage = loginPage.login(InarConfig.getProperty("target-market.standard.username"), InarConfig.getProperty("target-market.password"));
+        homePage = targetMarketLoginPage.login(InarConfig.getProperty("target-market.standard.username"), InarConfig.getProperty("target-market.password"));
     }
 
 

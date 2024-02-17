@@ -39,15 +39,14 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
-        <dependency>
+    <!--    <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>3.0.0-beta1</version>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
-
-    <build>
+  <!--  <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -58,14 +57,14 @@
                         <suiteXmlFile>src/main/java/resources/suites/loginTests.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
-               <!-- <configuration>
+               &lt;!&ndash; <configuration>
                     &lt;!&ndash; Specific configuration for JUnit 5. &ndash;&gt;
                     <useModulePath>false</useModulePath>
                     <includes>
                         <include>**/*DenemeTest.java</include>
                     </includes>
-                </configuration>-->
+                </configuration>&ndash;&gt;
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 </project>

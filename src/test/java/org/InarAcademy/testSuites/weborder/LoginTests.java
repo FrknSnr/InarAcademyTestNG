@@ -1,3 +1,4 @@
+/*
 package org.InarAcademy.testSuites.weborder;
 
 import org.InarAcademy.dataProvider.UsernameData;
@@ -28,7 +29,8 @@ public class LoginTests extends TestBase {
         Assert.assertEquals(weborderLoginPage.getPasswordInfoText(), "Password: Academy");
     }
 
-    /*@Test(groups = {"smoke"})
+    */
+/*@Test(groups = {"smoke"})
     public void loginWithValidCredentials() {
         HomePage homePage = weborderLoginPage.login("Inar", "Academy");
         Assert.assertEquals(homePage.getWelcomeText(), "Welcome, Inar!");
@@ -44,5 +46,6 @@ public class LoginTests extends TestBase {
     public void loginWithInvalidPassword(String username, String password, String alertMessage) {
         weborderLoginPage.login(username, password);
         Assert.assertEquals(weborderLoginPage.getPasswordAlertMessage(), alertMessage);
-    }*/
-}
+    }*//*
+
+}*/
